@@ -52,7 +52,7 @@ def result_page(data):
       st.write(f"{data.get("longest_token_count")} 토큰")
 
 def render():
-  st.title("Interface")
+  st.title("9.11 vs 9.9 인터뷰 과제 테스트 필드")
   tab1, tab2 = st.tabs(["테스트 설정", "테스트 결과"])
   with tab1:
     data = input_page()

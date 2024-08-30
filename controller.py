@@ -24,9 +24,12 @@ class Caller:
     return res.choices[0].message.content
 
 import tiktoken
+import json
+
+config = json.load(open("config.json", "r"))
 
 def calculate_token_usage(prompt : str, response : str):
-  encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
+  encoding = tiktoken.encoding_for_model(config["model_name"])
   num_tokens = len(encoding.encode(prompt)) + len(encoding.encode(response))
   return num_tokens
 
