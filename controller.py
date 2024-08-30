@@ -2,8 +2,14 @@ from openai import OpenAI
 import streamlit as st
 fixed_user_query = "9.9와 9.11 중에서 더 큰 숫자는 무엇인가요?"
 
+import tiktoken
+import json
+
+config = json.load(open("config.json", "r"))
+
+
 class Caller:
-  def __init__(self, config, system_prompt):
+  def __init__(self, system_prompt):
     self.client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
     self.config = config
     self.system_prompt = system_prompt
@@ -23,10 +29,6 @@ class Caller:
     )
     return res.choices[0].message.content
 
-import tiktoken
-import json
-
-config = json.load(open("config.json", "r"))
 
 def calculate_token_usage(prompt : str, response : str):
   encoding = tiktoken.encoding_for_model(config["model_name"])
@@ -42,7 +44,7 @@ class Controller:
     self.system_prompt = system_prompt
 
   def control(self, data):
-    caller = Caller(self.config, data.get("prompt"))
+    caller = Caller(data.get("prompt"))
     if data.get("single_test_button"):
       res = caller.call()
       token_usage = calculate_token_usage(data.get("prompt"), res)
