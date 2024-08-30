@@ -65,8 +65,7 @@ def render():
 
 class Interface:
   def __init__(self):
-    self.name = "Interface"
     st.set_page_config(layout="wide")
 
   def run(self):
-    data = render()
+    render()
