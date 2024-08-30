@@ -1,10 +1,10 @@
 from openai import OpenAI
-
+import streamlit as st
 fixed_user_query = "9.9와 9.11 중에서 더 큰 숫자는 무엇인가요?"
 
 class Caller:
   def __init__(self, config, system_prompt):
-    self.client = OpenAI()
+    self.client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
     self.config = config
     self.system_prompt = system_prompt
 
